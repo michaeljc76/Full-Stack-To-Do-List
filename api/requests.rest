@@ -1,8 +1,8 @@
-GET http://localhost:3002/todos
+GET http://localhost:3001/todos
 
 ###
 
-POST http://localhost:3002/todo/new
+POST http://localhost:3001/todo/new
 Content-Type: application/json
 
 {
@@ -11,4 +11,8 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:3002/todo/delete
+DELETE http://localhost:3001/todo/delete/64ecf6bc1c25a0bd09ea5724
+
+###
+
+PUT http://localhost:3001/todo/complete/64ecf6c11c25a0bd09ea5728

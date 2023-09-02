@@ -1,7 +1,8 @@
 :root{
-  --bg-color: #272829;
-  --app-color: #191919;
+  --bg-color: #FFFFFF;
+  --app-color: #EEEEEE;
   --dark-text: #686868;
+  --hover: #CCCCCC;
 }
 
 body {
@@ -17,11 +18,14 @@ body {
   margin: 1rem;
   border-radius: 0.5rem;
   background-color: var(--app-color);
-  color: white;
+  color: #444444;
 }
 
+/*
 .todos{
+
 }
+*/
 
 .todo{
   position: relative;
@@ -31,10 +35,11 @@ body {
   justify-content: left;
   background-color: var(--bg-color);
   border-radius: 0.5rem;
+  cursor: pointer;
 }
 
 .todo:hover{
-  background-color: #3b3d3d;
+  background-color: var(--hover);
 }
 
 .todo .checkbox{
@@ -47,7 +52,7 @@ body {
   transition: 400ms;
 }
 
-.todo-complete  {
+.todo.is-complete{
   padding: 0.5rem;
   margin-bottom: 1rem;
   display: flex;
@@ -56,18 +61,18 @@ body {
   border-radius: 0.5rem;
 }
 
-.todo-complete:hover{
-  background-color: #3b3d3d;
+.todo.is-complete:hover{
+  background-color: var(--hover);
 }
 
-.todo-complete .checkbox{
+.todo.is-complete .checkbox{
   width: 1.5rem;
   height: 1.5rem;
   margin-right: 0.5rem;
   margin-left: 1rem;
   border-radius: 0.4rem;
   background-color: var(--bg-color);
-  background-image: linear-gradient(to bottom, red, pink);
+  background-image: linear-gradient(to bottom right, red, white);
 }
 
 .todo .text{
@@ -75,11 +80,10 @@ body {
   font-weight: 400;
 }
 
-.todo-complete .text{
+.todo.is-complete .text{
   font-size: 1rem;
   font-weight: 400;
   color: var(--dark-text);
-  font-style: italic;
   text-decoration: line-through;
 }
 
@@ -92,6 +96,51 @@ body {
   border-radius: 0.4em;
   display: flex;
   justify-content: center;
+}
+
+.addPopup{
+  position: fixed;
+  left: 2rem;
+  bottom: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2rem;
+  width: 4rem;
+  color: black;
+  border: 0.1rem solid black;
+  border-radius: 0.4rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.closePopup{
+  height: 2rem;
+  width: 4rem;
+  position: absolute;
+  top:1rem;
+  right: 1rem;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 0.1rem solid black;
+  border-radius: 0.4rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.popup{
+  position: relative;
+  background-color: white;
+  padding: 1rem;
+  margin: 1rem;
+  width: 45%;
+  border-radius: 0.4rem;
+}
+
+input{
+  width: 98%;
 }
 
 h1{

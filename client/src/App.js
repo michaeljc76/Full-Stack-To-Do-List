@@ -6,6 +6,21 @@ function App() {
     const [todos, setTodos] = useState([]);
     const [popupActive, setPopupActive] = useState(false);
     const [newTodo, setNewTodo] = useState("");
+    const addTodo = async () => {
+        const data = await fetch(API_BASE + "/todo/new", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                text: newTodo
+            })
+        }).then(res => res.json);
+        
+        setTodos([...todos, data]);
+        setPopupActive(false);
+        setNewTodo('');
+    }
 
     useEffect(() =>{
         GetTodos();
@@ -20,37 +35,61 @@ function App() {
             .catch(err => console.error("Error: ", err));
     }
 
+    const completeTodo = async id => {
+        const data = await fetch(API_BASE + "/todo/complete/" + id)
+        .then(res => res.json());
+
+        setTodos(todos => todos.map(todo => {
+            if(todo._id === data._id){
+                todo.complete = data.complete;
+            }
+            return todo;
+        }));
+    }
+
+    const deleteTodo = async id => {
+        const data = await fetch(API_BASE + "/todo/delete/" + id, {method: "DELETE"})
+        .then(res => res.json());
+
+        setTodos(todos => todos.filter(todo => todo._id !== data._id));        
+    }
+
 	return (
 		<div className="App">
 			<h1>Welcome Michael!</h1>
             <h4>Your Tasks:</h4>
 
             <div className="todos">
-                <div className="todo">
+                {todos.map(todo =>(
+                <div className={
+                    "todo " + (todo.complete ? "is-complete" : "")
+                } key={todo._id} onClick = {() => completeTodo(todo._id)}>
                     <div className="checkbox"></div>
 
-                    <div className="text">Go to the gym.</div>
+                    <div className="text">{todo.text}</div>
 
-                    <div className="delete">x</div>
+                    <div className="delete" onClick={() => deleteTodo(todo._id)}>x</div>
                 </div>
-
-                <div className="todo">
-                    <div className="checkbox"></div>
-
-                    <div className="text">Get Groceries.</div>
-
-                    <div className="delete">x</div>
-                </div>
-
-                <div className="todo-complete">
-                    <div className="checkbox"></div>
-
-                    <div className="text">Do Homework.</div>
-
-                    <div className="delete">x</div>
-                </div>
-
+                ))}
             </div>
+            
+            <div className='addPopup' onClick={() => setPopupActive(true)}>add</div>
+            {popupActive ? (
+                <div className='popup'>
+                    <div className='closePopup' onClick={() => setPopupActive(false)}><img src="https://icons8.com/icon/35/close-window"></img></div>
+                    <div className='content'>
+                        <h4>Add Task:</h4>
+                        <input
+                            type='text'
+                            className='add-todo-input'
+                            onChange={e => setNewTodo(e.target.value)}
+                            value={newTodo}>
+                        </input>
+                        <div className='button' onClick={addTodo}>Create Task</div>
+                    </div>
+                </div>
+            ) : ''}
+
 		</div>
 	);
 }

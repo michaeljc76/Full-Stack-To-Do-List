@@ -33,13 +33,16 @@ body {
   margin-bottom: 1rem;
   display: flex;
   justify-content: left;
+  align-items: center;
   background-color: var(--bg-color);
   border-radius: 0.5rem;
   cursor: pointer;
 }
 
 .todo:hover{
-  background-color: var(--hover);
+  border: 2px solid var(--dark-text);
+  margin-left: 0.5rem;
+  transition: 200ms;
 }
 
 .todo .checkbox{
@@ -50,6 +53,7 @@ body {
   border-radius: 0.4rem;
   background-color: var(--bg-color);
   transition: 400ms;
+  background-color: var(--app-color);
 }
 
 .todo.is-complete{
@@ -57,27 +61,29 @@ body {
   margin-bottom: 1rem;
   display: flex;
   justify-content: left;
+  align-items: center;
   background-color: var(--bg-color);
   border-radius: 0.5rem;
 }
 
 .todo.is-complete:hover{
-  background-color: var(--hover);
+  background-color: var(--bg-color);
 }
 
 .todo.is-complete .checkbox{
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 0.75rem;
+  height: 0.75rem;
   margin-right: 0.5rem;
-  margin-left: 1rem;
-  border-radius: 0.4rem;
+  margin-left: 0.5rem;
+  border-radius: 1rem;
   background-color: var(--bg-color);
-  background-image: linear-gradient(to bottom right, red, white);
+  background-image: linear-gradient(to top right, #FF9A8B, #FF6A88, #FF99AC);
 }
 
 .todo .text{
   font-size: 1rem;
   font-weight: 400;
+  width: 95%;
 }
 
 .todo.is-complete .text{
@@ -98,7 +104,18 @@ body {
   justify-content: center;
 }
 
+.todo:hover .delete{
+  background-color: #FF6666;
+  color: white
+}
+
+.todo.todo.is-complete:hover .delete{
+  background-color: #FF6666;
+  color: white;
+}
+
 .addPopup{
+  padding-bottom: 0.4rem;
   position: fixed;
   left: 2rem;
   bottom: 2rem;
@@ -107,11 +124,12 @@ body {
   justify-content: center;
   height: 2rem;
   width: 4rem;
-  color: black;
-  border: 0.1rem solid black;
+  color: white;
   border-radius: 0.4rem;
-  font-weight: 500;
+  font-size: 2rem;
+  font-weight: 800;
   cursor: pointer;
+  background-image: linear-gradient(to top right, #FF9A8B, #FF6A88, #FF99AC);
 }
 
 .closePopup{
@@ -120,14 +138,25 @@ body {
   position: absolute;
   top:1rem;
   right: 1rem;
-  color: black;
+  color: white;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 0.1rem solid black;
   border-radius: 0.4rem;
   font-weight: 500;
   cursor: pointer;
+  background-color: #FF6666;
+}
+
+.createPopup{
+  height: 2rem;
+  width: 6rem;
+  border-radius: 0.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: linear-gradient(to top right, #FF9A8B, #FF6A88, #FF99AC);
+  color: white;
 }
 
 .popup{
@@ -139,8 +168,10 @@ body {
   border-radius: 0.4rem;
 }
 
-input{
+.add-todo-input{
+  background-color: white;
   width: 98%;
+  margin-bottom: 1rem;
 }
 
 h1{

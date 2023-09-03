@@ -6,21 +6,6 @@ function App() {
     const [todos, setTodos] = useState([]);
     const [popupActive, setPopupActive] = useState(false);
     const [newTodo, setNewTodo] = useState("");
-    const addTodo = async () => {
-        const data = await fetch(API_BASE + "/todo/new", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                text: newTodo
-            })
-        }).then(res => res.json);
-        
-        setTodos([...todos, data]);
-        setPopupActive(false);
-        setNewTodo('');
-    }
 
     useEffect(() =>{
         GetTodos();
@@ -54,6 +39,22 @@ function App() {
         setTodos(todos => todos.filter(todo => todo._id !== data._id));        
     }
 
+    const addTodo = async () => {
+        const data = await fetch(API_BASE + "/todo/new", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                text: newTodo
+            })
+        }).then(res => res.json());
+        
+        setTodos([...todos, data]);
+        setPopupActive(false);
+        setNewTodo("");
+    }
+
 	return (
 		<div className="App">
 			<h1>Welcome Michael!</h1>
@@ -73,10 +74,10 @@ function App() {
                 ))}
             </div>
             
-            <div className='addPopup' onClick={() => setPopupActive(true)}>add</div>
+            <div className='addPopup' onClick={() => setPopupActive(true)}>+</div>
             {popupActive ? (
                 <div className='popup'>
-                    <div className='closePopup' onClick={() => setPopupActive(false)}><img src="https://icons8.com/icon/35/close-window"></img></div>
+                    <div className='closePopup' onClick={() => setPopupActive(false)}>X</div>
                     <div className='content'>
                         <h4>Add Task:</h4>
                         <input
@@ -85,7 +86,7 @@ function App() {
                             onChange={e => setNewTodo(e.target.value)}
                             value={newTodo}>
                         </input>
-                        <div className='button' onClick={addTodo}>Create Task</div>
+                        <div className='createPopup' onClick={addTodo}>Create Task</div>
                     </div>
                 </div>
             ) : ''}

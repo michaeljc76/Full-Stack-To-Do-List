@@ -12,7 +12,7 @@ mongoose.connect("mongodb://127.0.0.1:27017/fullstacktodo", {
     useUnifiedTopology: true
 }).then(() => console.log("Connected to DataBase")).catch(console.error);
 
-const Todo = require("./models/todo");
+const Todo = require("./models/Todo");
 
 app.get("/todos", async (req, res) => {
     const todos = await Todo.find();
